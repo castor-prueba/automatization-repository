@@ -1,29 +1,36 @@
 import subprocess
-import sys
+import os
 
-def is_dotnet_installed():
-    """Verifica si el SDK de .NET Core está instalado."""
-    try:
-        subprocess.run(["dotnet", "--version"], check=True, stdout=subprocess.DEVNULL)
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return False
+def create_dotnet_project(project_type, project_name):
+    # Crear el proyecto .NET
+    subprocess.run(["dotnet", "new", project_type, "-o", project_name], check=True)
+    print(f"Proyecto {project_type} '{project_name}' creado.")
 
-def install_instructions():
-    """Imprime las instrucciones de instalación del SDK de .NET Core para diferentes sistemas operativos."""
-    print("El SDK de .NET Core no está instalado. Por favor, instálalo siguiendo las instrucciones para tu sistema operativo.")
-    print("\nWindows:\nVisita https://dotnet.microsoft.com/download y sigue las instrucciones para Windows.")
-    print("\nmacOS:\nPuedes usar Homebrew: 'brew install --cask dotnet-sdk'")
-    print("\nLinux:\nVisita https://dotnet.microsoft.com/download y sigue las instrucciones para tu distribución de Linux específica.")
-    print("\nUna vez instalado el SDK de .NET Core, vuelve a ejecutar este script.")
+def create_folders(project_name, folders):
+    # Crear una estructura de carpetas dentro del proyecto
+    for folder in folders:
+        path = os.path.join(project_name, folder)
+        os.makedirs(path, exist_ok=True)
+        print(f"Carpeta '{folder}' creada en '{project_name}'.")
 
 def main():
-    if not is_dotnet_installed():
-        install_instructions()
-        sys.exit(1)
-    
-    # El código para crear el proyecto .NET va aquí.
-    print("El SDK de .NET Core está instalado.")
+    project_name = "MiProyectoAspNet"
+    project_type = "webapp"  # Puedes cambiar esto por otro tipo de proyecto, como 'console', 'classlib', etc.
+
+    folders = [  # Estructura de carpetas personalizada dentro del proyecto
+        "Servicios",
+        "Modelos",
+        "Interfaces",
+        # Agrega más carpetas según sea necesario
+    ]
+
+    create_dotnet_project(project_type, project_name)
+    create_folders(project_name, folders)
+
+    # Opcional: Restaurar dependencias y ejecutar el proyecto
+    os.chdir(project_name)  # Cambiar al directorio del proyecto
+    subprocess.run(["dotnet", "restore"], check=True)  # Restaurar dependencias
+    subprocess.run(["dotnet", "run"], check=True)  # Ejecutar el proyecto
 
 if __name__ == "__main__":
     main()
