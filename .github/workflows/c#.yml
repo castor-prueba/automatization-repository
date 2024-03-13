@@ -46,10 +46,8 @@ jobs:
           mkdir -p ${{ github.event.inputs.repo_name }}/Services
           mkdir -p ${{ github.event.inputs.repo_name }}/Models
           mkdir -p ${{ github.event.inputs.repo_name }}/Interfaces
-          ls
 
       - run: |
-          cd ${{ github.event.inputs.repo_name }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           rm -rf .git/
@@ -63,6 +61,5 @@ jobs:
           REPO_NAME: ${{ github.event.inputs.repo_name }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}
         run: |
-          git remote rm origin
           git remote add origin https://$GITHUB_TOKEN@github.com/JhoanDRojas/$REPO_NAME.git
           git push -f origin main
