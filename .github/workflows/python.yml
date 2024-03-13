@@ -38,9 +38,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run script-back-python
+      - name: Run script
         run: |
-          python script.py # Asegúrate de que este script genere los archivos en un directorio específico, por ejemplo 'output/'
+          python script-back-python.py # Asegúrate de que este script genere los archivos en un directorio específico, por ejemplo 'output/'
 
       - run: |
           git config --global user.email "jhoan.rojas@mercurio.com.co"
