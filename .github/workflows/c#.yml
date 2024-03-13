@@ -68,7 +68,7 @@ jobs:
           dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
           dotnet new xunit -o  05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
           
-          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function.csproj
+          
          
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
