@@ -1,0 +1,27 @@
+import subprocess
+import os
+
+# Nombre del proyecto .NET y tipo de proyecto
+project_name = "MiProyectoAspNet"
+project_type = "webapp"  # Puedes cambiarlo por otro tipo, como "console", "classlib", "webapi", etc.
+
+# Crear el proyecto .NET
+subprocess.run(["dotnet", "new", project_type, "-o", project_name])
+print(f"Proyecto {project_type} '{project_name}' creado.")
+
+# Navegar a la carpeta del proyecto
+os.chdir(project_name)
+
+# Crear una estructura de carpetas personalizada dentro del proyecto
+folders = [
+    "Servicios",
+    "Modelos",
+    "Interfaces"
+]
+
+for folder in folders:
+    os.makedirs(folder, exist_ok=True)
+    # Opcionalmente, puedes crear archivos dentro de las carpetas aquí
+    print(f"Carpeta '{folder}' creada dentro de '{project_name}'.")
+
+print("Estructura de carpetas personalizada creada.")
