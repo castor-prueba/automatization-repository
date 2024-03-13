@@ -47,7 +47,6 @@ jobs:
           mkdir -p Services && echo "namespace ${{ github.event.inputs.repo_name }}.Services { }" > Services/ExampleService.cs
           mkdir -p Models && echo "namespace ${{ github.event.inputs.repo_name }}.Models { }" > Models/ExampleModel.cs
           mkdir -p Interfaces && echo "namespace ${{ github.event.inputs.repo_name }}.Interfaces { }" > Interfaces/IExampleInterface.cs
-          working-directory: ${{ github.event.inputs.repo_name }}
 
       - name: List directory contents
         run: ls -al
