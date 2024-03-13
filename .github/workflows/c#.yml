@@ -33,14 +33,19 @@ jobs:
           token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
           fetch-depth: 0
         
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
         with:
-          python-version: '3.11'
+          dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
 
-      - name: Run script
+      - name: Create .NET Project
+        run: dotnet new webapp -o MyWebApp
+
+      - name: Create Custom Folder Structure
         run: |
-          python script-back-c#.py # Asegúrate de que este script genere los archivos en un directorio específico, por ejemplo 'output/'
+          mkdir -p MyWebApp/Services
+          mkdir -p MyWebApp/Models
+          mkdir -p MyWebApp/Interfaces
 
       - run: |
           git config --global user.email "jhoan.rojas@mercurio.com.co"
