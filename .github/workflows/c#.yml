@@ -6,6 +6,9 @@ on:
       repo_name:
         description: 'Nombre del nuevo repositorio'
         required: true
+      name_solution: 
+        description: 'Nombre de la solución'
+        required: true
       private:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
@@ -38,19 +41,39 @@ jobs:
         with:
           dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
 
-      - name: Create .NET Project
-        run: dotnet new webapi -o ${{ github.event.inputs.repo_name }}
-
-      - name: Create Custom Folder Structure
+      - name: Crear solución
         run: |
-          cd ${{ github.event.inputs.repo_name }}
-          mkdir -p Services && echo "namespace ${{ github.event.inputs.repo_name }}.Services { }" > Services/ExampleService.cs
-          mkdir -p Models && echo "namespace ${{ github.event.inputs.repo_name }}.Models { }" > Models/ExampleModel.cs
-          mkdir -p Interfaces && echo "namespace ${{ github.event.inputs.repo_name }}.Interfaces { }" > Interfaces/IExampleInterface.cs
+          dotnet new sln -o ${{ env.solution_name }}
+      
 
-      - name: List directory contents
-        run: ls -al
-        working-directory: ${{ github.event.inputs.repo_name }}
+      - name: Crear proyectos y estructura de carpetas
+
+        run: |
+          cd ${{ env.solution_name }}
+          mkdir -p src/Application
+          mkdir -p src/Domain
+          mkdir -p src/Function
+          mkdir -p src/Infrastructure/Agents
+          mkdir -p src/Infrastructure/ExternalService
+          mkdir -p src/Infrastructure/Persistence
+          mkdir -p tests
+          dotnet new classlib -o src/Application/${{ env.project_name }}.Application
+          dotnet new classlib -o src/Domain/${{ env.project_name }}.Domain
+          dotnet new classlib -o src/Function/${{ env.project_name }}.Function
+          dotnet new classlib -o src/Infrastructure/Agents/${{ env.project_name }}.Infrastructure.Agents
+          dotnet new classlib -o src/Infrastructure/ExternalService/${{ env.project_name }}.Infrastructure.ExternalService
+          dotnet new classlib -o src/Infrastructure/Persistence/${{ env.project_name }}.Infrastructure.Persistence
+          dotnet new xunit -o tests/${{ env.project_name }}.Tests
+
+      - name: Restaurar paquetes NuGet
+        run: |
+          cd ${{ env.solution_name }}
+          dotnet restore
+          
+      - name: Construir la solución
+        run: |
+          cd ${{ env.solution_name }}
+          dotnet build
 
       - run: |
           git config --global user.email "jhoan.rojas@mercurio.com.co"
