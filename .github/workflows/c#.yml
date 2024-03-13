@@ -43,9 +43,10 @@ jobs:
 
       - name: Create Custom Folder Structure
         run: |
-          mkdir -p ${{ github.event.inputs.repo_name }}/Services
-          mkdir -p ${{ github.event.inputs.repo_name }}/Models
-          mkdir -p ${{ github.event.inputs.repo_name }}/Interfaces
+            cd ${{ github.event.inputs.repo_name }}
+            mkdir -p Services
+            mkdir -p Models
+            mkdir -p Interfaces
 
       - run: |
           git config --global user.email "jhoan.rojas@mercurio.com.co"
