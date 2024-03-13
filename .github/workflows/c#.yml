@@ -51,6 +51,7 @@ jobs:
           cd ${{ github.event.inputs.repo_name }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
+          cd ..
           rm -rf .git/
           git init
           git add .
