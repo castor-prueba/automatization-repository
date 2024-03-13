@@ -63,8 +63,9 @@ jobs:
           mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
           mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
-          
-          func new --name 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          cd 01.${{ github.event.inputs.name_project }}.Api
+          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          cd ..
           dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
