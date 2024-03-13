@@ -58,14 +58,17 @@ jobs:
 
         run: |
           cd ${{ github.event.inputs.name_solution }}
-          mkdir -p 01.${{ github.event.inputs.name_project }}.Api
+          mkdir -p 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
           mkdir -p 02.${{ github.event.inputs.name_project }}.Application
           mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
           mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
-          cd 01.${{ github.event.inputs.name_project }}.Api
+          
+          cd 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
           func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
           cd ..
+          cd ..
+          
           dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
