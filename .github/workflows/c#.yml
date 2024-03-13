@@ -38,15 +38,20 @@ jobs:
         with:
           token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
           fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v4
         
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
 
-      - name: Crear solución
+      - name: Crear solución y instalacion del tool
         run: |
+          npm i -g azure-functions-core-tools@4 --unsafe-perm true
           dotnet new sln -o ${{ github.event.inputs.name_solution }}
+
       
 
       - name: Crear proyectos y estructura de carpetas
@@ -58,9 +63,8 @@ jobs:
           mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
           mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
-
-          dotnet new classlib -o 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
           
+          func new --name 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
           dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
@@ -69,7 +73,7 @@ jobs:
           dotnet new xunit -o  05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
           
           
-         
+          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}.Function.csproj
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
@@ -77,9 +81,10 @@ jobs:
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
-                
           
-
+        
+      
+            
       - name: Restaurar paquetes NuGet
         run: |
           cd ${{ github.event.inputs.name_solution }}
