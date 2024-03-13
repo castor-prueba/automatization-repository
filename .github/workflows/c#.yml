@@ -72,10 +72,10 @@ jobs:
          
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
-          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
           
-          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
-          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
                 
           
