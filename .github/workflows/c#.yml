@@ -66,6 +66,7 @@ jobs:
           
           cd 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
           func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          ls -la
           cd ..
           cd ..
           
