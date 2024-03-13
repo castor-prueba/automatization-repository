@@ -67,13 +67,16 @@ jobs:
           dotnet new classlib -o src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
           dotnet new classlib -o src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
           dotnet new xunit -o src/Test/${{ github.event.inputs.name_project }}.Tests
-          dotnet sln add src/Application/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Domain/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Function/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.csproj
-          dotnet sln add src/Test/${{ github.event.inputs.name_project }}.csproj
+          
+      - name: agregar proyectos a solución
+        run: |
+          dotnet sln add src/Application/${{ github.event.inputs.name_project }}.Application.csproj
+          dotnet sln add src/Domain/${{ github.event.inputs.name_project }}.Domain.csproj
+          dotnet sln add src/Function/${{ github.event.inputs.name_project }}.Function.csproj
+          dotnet sln add src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
+          dotnet sln add src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
+          dotnet sln add src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
+          dotnet sln add src/Test/${{ github.event.inputs.name_project }}.Tests.csproj
                 
           
 
