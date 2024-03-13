@@ -39,7 +39,7 @@ jobs:
           dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
 
       - name: Create .NET Project
-        run: dotnet new webapp -o MyWebApp
+        run: dotnet new webapp ${{ github.event.inputs.repo_name }}
 
       - name: Create Custom Folder Structure
         run: |
@@ -48,6 +48,7 @@ jobs:
           mkdir -p MyWebApp/Interfaces
 
       - run: |
+          cd ${{ github.event.inputs.repo_name }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           rm -rf .git/
