@@ -39,13 +39,14 @@ jobs:
           dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
 
       - name: Create .NET Project
-        run: dotnet new webapp -n ${{ github.event.inputs.repo_name }}
+        run: dotnet new webapi -o ${{ github.event.inputs.repo_name }}
 
       - name: Create Custom Folder Structure
         run: |
           mkdir -p ${{ github.event.inputs.repo_name }}/Services
           mkdir -p ${{ github.event.inputs.repo_name }}/Models
           mkdir -p ${{ github.event.inputs.repo_name }}/Interfaces
+          ls
 
       - run: |
           cd ${{ github.event.inputs.repo_name }}
