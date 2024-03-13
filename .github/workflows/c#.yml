@@ -59,14 +59,23 @@ jobs:
           mkdir -p src/Infrastructure/Agents
           mkdir -p src/Infrastructure/ExternalService
           mkdir -p src/Infrastructure/Persistence
-          mkdir -p tests
+          mkdir -p src/Test
           dotnet new classlib -o src/Application/${{ github.event.inputs.name_project }}.Application
           dotnet new classlib -o src/Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet new classlib -o src/Function/${{ github.event.inputs.name_project }}.Function
           dotnet new classlib -o src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents
           dotnet new classlib -o src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
           dotnet new classlib -o src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
-          dotnet new xunit -o tests/${{ github.event.inputs.name_project }}.Tests
+          dotnet new xunit -o src/Test/${{ github.event.inputs.name_project }}.Tests
+          dotnet sln add src/Application/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Domain/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Function/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.csproj
+          dotnet sln add src/Test/${{ github.event.inputs.name_project }}.csproj
+                
+          
 
       - name: Restaurar paquetes NuGet
         run: |
