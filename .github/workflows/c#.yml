@@ -9,6 +9,9 @@ on:
       name_solution: 
         description: 'Nombre de la solución'
         required: true
+      name_project: 
+        description: 'Nombre del proyecto'
+        required: true
       private:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
@@ -43,13 +46,13 @@ jobs:
 
       - name: Crear solución
         run: |
-          dotnet new sln -o ${{ env.solution_name }}
+          dotnet new sln -o ${{ github.event.inputs.name_solution }}
       
 
       - name: Crear proyectos y estructura de carpetas
 
         run: |
-          cd ${{ env.solution_name }}
+          cd ${{ github.event.inputs.name_solution }}
           mkdir -p src/Application
           mkdir -p src/Domain
           mkdir -p src/Function
@@ -57,22 +60,22 @@ jobs:
           mkdir -p src/Infrastructure/ExternalService
           mkdir -p src/Infrastructure/Persistence
           mkdir -p tests
-          dotnet new classlib -o src/Application/${{ env.project_name }}.Application
-          dotnet new classlib -o src/Domain/${{ env.project_name }}.Domain
-          dotnet new classlib -o src/Function/${{ env.project_name }}.Function
-          dotnet new classlib -o src/Infrastructure/Agents/${{ env.project_name }}.Infrastructure.Agents
-          dotnet new classlib -o src/Infrastructure/ExternalService/${{ env.project_name }}.Infrastructure.ExternalService
-          dotnet new classlib -o src/Infrastructure/Persistence/${{ env.project_name }}.Infrastructure.Persistence
-          dotnet new xunit -o tests/${{ env.project_name }}.Tests
+          dotnet new classlib -o src/Application/${{ github.event.inputs.name_project }}.Application
+          dotnet new classlib -o src/Domain/${{ github.event.inputs.name_project }}.Domain
+          dotnet new classlib -o src/Function/${{ github.event.inputs.name_project }}.Function
+          dotnet new classlib -o src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet new classlib -o src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
+          dotnet new classlib -o src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet new xunit -o tests/${{ github.event.inputs.name_project }}.Tests
 
       - name: Restaurar paquetes NuGet
         run: |
-          cd ${{ env.solution_name }}
+          cd ${{ github.event.inputs.name_solution }}
           dotnet restore
           
       - name: Construir la solución
         run: |
-          cd ${{ env.solution_name }}
+          cd ${{ github.event.inputs.name_solution }}
           dotnet build
 
       - run: |
