@@ -53,28 +53,30 @@ jobs:
 
         run: |
           cd ${{ github.event.inputs.name_solution }}
-          mkdir -p src/Application
-          mkdir -p src/Domain
-          mkdir -p src/Function
-          mkdir -p src/Infrastructure/Agents
-          mkdir -p src/Infrastructure/ExternalService
-          mkdir -p src/Infrastructure/Persistence
-          mkdir -p src/Test
-          dotnet new classlib -o src/Application/${{ github.event.inputs.name_project }}.Application
-          dotnet new classlib -o src/Domain/${{ github.event.inputs.name_project }}.Domain
-          dotnet new classlib -o src/Function/${{ github.event.inputs.name_project }}.Function
-          dotnet new classlib -o src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents
-          dotnet new classlib -o src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
-          dotnet new classlib -o src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
-          dotnet new xunit -o src/Test/${{ github.event.inputs.name_project }}.Tests
+          mkdir -p 01.${{ github.event.inputs.name_project }}.Api
+          mkdir -p 02.${{ github.event.inputs.name_project }}.Application
+          mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
+          mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
+          mkdir -p 05.${{ github.event.inputs.name_project }}.Test
+
+          dotnet new classlib -o s01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
           
-          dotnet sln add src/Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
-          dotnet sln add src/Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
+          dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+          dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet new xunit -o  05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+          
           dotnet sln add src/Function/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}.Function.csproj
-          dotnet sln add src/Infrastructure/Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
-          dotnet sln add src/Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
-          dotnet sln add src/Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
-          dotnet sln add src/Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
+         
+          dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
+          dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
+          
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
+          dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests.csproj
                 
           
 
