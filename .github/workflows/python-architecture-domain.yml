@@ -41,6 +41,8 @@ jobs:
       - name: Run script
         run: |
           mkdir ${{ github.event.inputs.repo_name }}
+          pwd 
+          cd ${{ github.event.inputs.repo_name }}
           python script-back-python.py # Asegúrate de que este script genere los archivos en un directorio específico, por ejemplo 'output/'
       
       - name: Git 
