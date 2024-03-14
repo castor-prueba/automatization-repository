@@ -59,9 +59,8 @@ jobs:
 
       - name: Git
         run: |
-          pwd script-back-python.py
           cd ${{ github.event.inputs.repo_name }}
-          rm -f
+          rm -f script-back-python.py
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           git init
