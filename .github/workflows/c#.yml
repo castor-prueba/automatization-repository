@@ -93,10 +93,12 @@ jobs:
           cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           dotnet add package AutoMapper
           dotnet add package Newtonsoft.Json
-
+          cd ..
+          cd ..
           cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet add package FluentValidation
-
+          cd ..
+          cd ..
           cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
           dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
           dotnet add package Microsoft.EntityFrameworkCore --version 6.0.8
@@ -104,13 +106,15 @@ jobs:
           dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.0.8
           dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.8
           dotnet add package Newtonsoft.Json
-
+          cd ..
+          cd ..
           04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
           dotnet add package Microsoft.Extensions.Configuration --version 6.0.1
           dotnet add package Microsoft.Extensions.Http --version 6.0.0
           dotnet add package Newtonsoft.Json
           dotnet add package Polly
-            
+          cd ..
+          cd ..
       - name: Restore NuGet packages
         run: |
           cd ${{ github.event.inputs.name_solution }}
