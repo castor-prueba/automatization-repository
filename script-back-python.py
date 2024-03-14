@@ -12,9 +12,6 @@ folders = [
     '_3_infrastructure/persistence',
     '_3_infrastructure/procies',
     'test',
-    'app/api/endpoints',
-    'app/core',
-    'app/db',
 ]
 
 # Crear estructura de carpetas
