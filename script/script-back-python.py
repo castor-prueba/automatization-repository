@@ -231,7 +231,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-.script
+.script-back-python.py
 """
 
 # Crear y escribir el archivo .gitignore en el directorio actual
