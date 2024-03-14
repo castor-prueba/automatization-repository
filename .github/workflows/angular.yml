@@ -43,7 +43,7 @@ jobs:
       run: npm install -g @angular/cli
 
     - name: Generar proyecto de Angular
-      run: ng new ${{ github.event.inputs.project_name }} --defaults --directory ./
+      run: ng new ${{ github.event.inputs.project_name }} --defaults
 
     - run: |
         cd  ${{ github.event.inputs.name_solution }}
