@@ -1,4 +1,4 @@
-name: Generate Angular Project
+name: Create Repository and Push python domain architectura
 
 on:
   workflow_dispatch:
@@ -6,10 +6,6 @@ on:
       repo_name:
         description: 'Nombre del nuevo repositorio'
         required: true
-      project_name:
-        description: 'proyecto frontend'
-        required: true
-        default: 'app'
       private:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
