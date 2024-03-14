@@ -86,14 +86,11 @@ jobs:
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
-          
-      - name: installation of dependencies
-        run: |
+
           cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           pwd
           dotnet add package AutoMapper
           dotnet add package Newtonsoft.Json
-
       
       - name: Restore NuGet packages
         run: |
