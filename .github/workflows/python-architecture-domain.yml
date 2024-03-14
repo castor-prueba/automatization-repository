@@ -42,12 +42,14 @@ jobs:
         run: pwd
         
       - name: Create folder ${{ github.event.inputs.repo_name }}
-        run: mkdir ${{ github.event.inputs.repo_name }}
+        run: |
+          mkdir ${{ github.event.inputs.repo_name }}
+          cp ./script/script-back-python.py ${{ github.event.inputs.repo_name }}
       
       - name: Run script
         run: |
           pwd  
-          python ./script/script-back-python.py
+          python ./${{ github.event.inputs.repo_name }}/script-back-python.py
           ls -la
 
       
