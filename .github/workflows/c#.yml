@@ -89,19 +89,22 @@ jobs:
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common/${{ github.event.inputs.name_project }}.Infrastructure.Common.csproj
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
 
-          cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+        
+      - name: Add dependency to proyect
+        run: |
+          cd ${{ github.event.inputs.name_solution }}/02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           
           dotnet add package AutoMapper
           dotnet add package Newtonsoft.Json
           cd ..
           cd ..
-          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+          cd ${{ github.event.inputs.name_solution }}/03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet add package FluentValidation
 
           cd ..
           cd ..
 
-          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          cd ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
           dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection 
           dotnet add package Microsoft.EntityFrameworkCore --version 6.0.8           
           dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.8
@@ -109,7 +112,7 @@ jobs:
           dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.8
           cd ..
           cd ..
-          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          cd ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
           dotnet add package Microsoft.Extensions.Configuration --version 6.0.1
           dotnet add package Microsoft.Extensions.Http --version 6.0.0
           dotnet add package Newtonsoft.Json
@@ -117,15 +120,11 @@ jobs:
           cd ..
           cd ..
 
-          cd 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+          cd ${{ github.event.inputs.name_solution }}/05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
           dotnet add package Moq
 
           cd ..
           cd ..
-          pwd
-      - name: Ruta
-        run: |
-          pwd
           
       - name: Restore NuGet packages
         run: |
