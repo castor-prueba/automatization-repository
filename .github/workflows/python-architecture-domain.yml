@@ -45,12 +45,14 @@ jobs:
         run: |
           mkdir ${{ github.event.inputs.repo_name }}
           cp ./script/script-back-python.py ${{ github.event.inputs.repo_name }}
+          cd ${{ github.event.inputs.repo_name }}
+          ls -la
       
       - name: Run script
         run: |
           pwd
           cd ${{ github.event.inputs.repo_name }}
-          python ./${{ github.event.inputs.repo_name }}/script-back-python.py
+          python script-back-python.py
           ls -la
 
       
