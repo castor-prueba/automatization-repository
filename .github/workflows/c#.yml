@@ -123,6 +123,9 @@ jobs:
           cd ..
           cd ..
           
+      - name: Ruta
+        run: |
+          pwd
           
       - name: Restore NuGet packages
         run: |
