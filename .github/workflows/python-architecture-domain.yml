@@ -38,12 +38,15 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Pwd
+        run: pwd
+      
       - name: Run script
+        run: python ./script/script-back-python.py 
+
+      - name: Git
         run: |
-          mkdir ${{ github.event.inputs.repo_name }}
-          pwd 
-          cd ${{ github.event.inputs.repo_name }}
-          python script-back-python.py # Asegúrate de que este script genere los archivos en un directorio específico, por ejemplo 'output/'
+          pwd
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           git init
