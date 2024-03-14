@@ -45,16 +45,16 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.0.x' # Asegúrate de usar la versión de .NET que necesites
+          dotnet-version: '6.0.x' 
 
-      - name: Crear solución y instalacion del tool
+      - name: Create solution and installation of the tool
         run: |
           npm i -g azure-functions-core-tools@4 --unsafe-perm true
           dotnet new sln -o ${{ github.event.inputs.name_solution }}
 
       
 
-      - name: Crear proyectos y estructura de carpetas
+      - name: Create projects and folder structure
 
         run: |
           cd ${{ github.event.inputs.name_solution }}
@@ -88,14 +88,35 @@ jobs:
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
           
         
-      
+      - name: installation of dependencies
+        run: |
+          cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+          dotnet add package AutoMapper
+          dotnet add package Newtonsoft.Json
+
+          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+          dotnet add package FluentValidation
+
+          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+          dotnet add package Microsoft.EntityFrameworkCore --version 6.0.8
+          dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.8
+          dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.0.8
+          dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.8
+          dotnet add package Newtonsoft.Json
+
+          04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet add package Microsoft.Extensions.Configuration --version 6.0.1
+          dotnet add package Microsoft.Extensions.Http --version 6.0.0
+          dotnet add package Newtonsoft.Json
+          dotnet add package Polly
             
-      - name: Restaurar paquetes NuGet
+      - name: Restore NuGet packages
         run: |
           cd ${{ github.event.inputs.name_solution }}
           dotnet restore
           
-      - name: Construir la solución
+      - name: Build the solution
         run: |
           cd ${{ github.event.inputs.name_solution }}
           dotnet build
