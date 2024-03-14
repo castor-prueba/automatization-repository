@@ -40,13 +40,24 @@ jobs:
 
       - name: Pwd
         run: pwd
+        
+      - name: Create folder ${{ github.event.inputs.repo_name }}
+        run: mkdir ${{ github.event.inputs.repo_name }}
       
       - name: Run script
-        run: python ./script/script-back-python.py 
+        run: |
+          pwd
+          cd ${{ github.event.inputs.repo_name }}
+          pwd  
+          python ./script/script-back-python.py
+          dir
+
+      
 
       - name: Git
         run: |
           pwd
+          cd ${{ github.event.inputs.repo_name }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           git init
