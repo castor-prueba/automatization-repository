@@ -43,6 +43,13 @@ jobs:
   
       - name: Generar proyecto de Angular
         run: ng new ${{ github.event.inputs.project_name }} --defaults
+
+      - name: Create Feature Modules
+        run: |
+          cd ${{ github.event.inputs.project_name }}
+          ng generate module core
+          ng generate module modules
+          ng generate module shared
   
       - run: |
           cd  ${{ github.event.inputs.project_name }}
