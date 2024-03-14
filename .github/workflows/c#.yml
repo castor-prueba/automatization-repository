@@ -95,7 +95,7 @@ jobs:
           dotnet add package Newtonsoft.Json
           cd ..
           cd ..
-          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
+          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet add package FluentValidation
 
           cd ..
