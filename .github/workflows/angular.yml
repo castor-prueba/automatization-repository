@@ -46,7 +46,7 @@ jobs:
       run: ng new ${{ github.event.inputs.project_name }} --defaults
 
     - run: |
-        cd  ${{ github.event.inputs.name_solution }}
+        cd  ${{ github.event.inputs.project_name }}
         git config --global user.email "jhoan.rojas@mercurio.com.co"
         git config --global user.name "JhoanDRojas"
         rm -rf .git/
@@ -60,6 +60,6 @@ jobs:
         REPO_NAME: ${{ github.event.inputs.repo_name }}
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}
       run: |
-        cd  ${{ github.event.inputs.name_solution }}
+        cd  ${{ github.event.inputs.project_name }}
         git remote add origin https://$GITHUB_TOKEN@github.com/JhoanDRojas/$REPO_NAME.git
         git push -f origin main
