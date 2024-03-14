@@ -1,4 +1,4 @@
-name: Create Repository and Push python
+name: Create Repository and Push python domain architectura
 
 on:
   workflow_dispatch:
