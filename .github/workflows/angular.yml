@@ -10,6 +10,10 @@ on:
         description: 'proyecto frontend'
         required: true
         default: 'app'
+      private:
+        description: '¿El repositorio debe ser privado? (true/false)'
+        required: true
+        default: 'true'
 
 jobs:
   create-and-push:
