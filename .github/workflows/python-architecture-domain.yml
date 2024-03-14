@@ -46,8 +46,6 @@ jobs:
       
       - name: Run script
         run: |
-          pwd
-          cd ${{ github.event.inputs.repo_name }}
           pwd  
           python ./script/script-back-python.py
           ls -la
