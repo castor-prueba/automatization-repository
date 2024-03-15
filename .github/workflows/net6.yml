@@ -31,7 +31,7 @@ jobs:
         run: |
           curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
                -d '{"name":"${{ github.event.inputs.repo_name }}", "private":${{ github.event.inputs.private }}}' \
-               https://api.github.com/user/repos
+               https://api.github.com/orgs/castor-prueba/repos
                
       - name: Checkout current repository
         uses: actions/checkout@v3
@@ -150,5 +150,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}
         run: |
           cd  ${{ github.event.inputs.name_solution }}
-          git remote add origin https://$GITHUB_TOKEN@github.com/JhoanDRojas/$REPO_NAME.git
+          git remote add origin https://$GITHUB_TOKEN@github.com/castor-prueba/$REPO_NAME.git
           git push -f origin main
