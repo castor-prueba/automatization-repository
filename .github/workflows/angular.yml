@@ -28,7 +28,7 @@ jobs:
         run: |
           curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
                -d '{"name":"${{ github.event.inputs.repo_name }}", "private":${{ github.event.inputs.private }}}' \
-               https://api.github.com/user/repos
+               https://api.github.com/orgs/castor-prueba/repos
 
       - name: Checkout repo
         uses: actions/checkout@v3
