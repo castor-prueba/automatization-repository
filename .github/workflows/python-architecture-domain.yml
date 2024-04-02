@@ -77,5 +77,5 @@ jobs:
           ls -la
           cd ${{ github.event.inputs.repo_name }}
           pwd
-          git remote add origin https://$GITHUB_TOKEN@github.com/JhoanDRojas/$REPO_NAME.git
+          git remote add origin https://$GITHUB_TOKEN@github.com/castor-prueba/$REPO_NAME.git
           git push -f origin main
