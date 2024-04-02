@@ -10,7 +10,7 @@ folders = [
     '_2_domin/utils',
     '_3_infrastructure/cross',
     '_3_infrastructure/persistence',
-    '_3_infrastructure/procies',
+    '_3_infrastructure/proxies',
     'test',
 ]
 
