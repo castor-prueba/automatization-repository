@@ -59,48 +59,26 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 - [Git Action](https://docs.github.com/es/actions)
 
 
-## Activación de action para la creacion de proyecto .Net6
+## Proyecto .Net6
 - [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
-
-
-
-
+ 
 #### Parámetros:
 - **repo_name**: Nombre del nuevo repositorio.
 - **name_solution**: Nombre de la solución del proyecto.
 - **name_project**: Nombre del proyecto dentro de la solución.
 - **private**: Indica si el repositorio debe ser privado (`true`/`false`).
 
+## Proyecto Angular
+- [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/744ba534-a8c5-47a4-b5da-514a9edbd1a7)
+#### Parámetros:
+- **Nombre del nuevo repositorio**: Nombre del repositorio que se va a crear.
+- **Proyecto frontend**: Nombre del proeycto de angular.
+- **private**: Indica si el repositorio debe ser privado (`true`/`false`).
 
+## Proyecto Python con Fast APi
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/03546947-b398-461f-9afe-c2c3288a72c6)
+#### Parámetros:
+- **Nombre del nuevo repositorio**: Nombre del repositorio que se va a crear.
+- **private**: Indica si el repositorio debe ser privado (`true`/`false`).
 
-
-### 
-
-
-
-
-### 2. Workflow de Despliegue Automatizado (Continuous Deployment)
-
-Este workflow se activa al hacer merge a la rama `main` y despliega automáticamente la aplicación en el entorno de producción. Las acciones incluyen:
-
-- Generación de artefactos de despliegue.
-- Configuración de variables de entorno.
-- Despliegue en el servidor de producción.
-
-## Configuración de Parámetros
-
-El proyecto permite configurar los siguientes parámetros en el archivo de configuración de Git Actions (`workflow.yml`):
-
-- **Ambiente de Despliegue:** Permite seleccionar el ambiente de despliegue (desarrollo, prueba, producción).
-- **Variables de Entorno:** Configuración de variables específicas para cada ambiente (ejemplo: URL de la base de datos, claves de API).
-- **Notificaciones:** Configuración de notificaciones por correo electrónico o mensajería instantánea.
-
-## Guía de Uso
-
-Para utilizar este proyecto en otros equipos, sigue los siguientes pasos:
-
-1. Clona el repositorio en tu entorno local.
-2. Configura los parámetros necesarios en el archivo `workflow.yml` según tus requisitos.
-3. Realiza los cambios necesarios en el código base y realiza commits en la rama correspondiente.
-4. Haz push a la rama para activar el workflow de Desarrollo Continuo.
-5. Realiza merge a la rama `main` para activar el workflow de Despliegue Automatizado en el ambiente de producción.
