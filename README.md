@@ -45,8 +45,13 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
  - Los pasos de la ejecución
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/6607e17d-70f8-41de-9bca-a307aac62efa)
 
-Si en la creación no tuvo ningun problema, en los action ejecutados nos mostrara una palomita verde
+- Si en la creación no tuvo ningun problema, en los action ejecutados nos mostrara una palomita verde
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f3a003af-0a32-4c0b-aab6-44da322511f7)
+
+- Por ultimo en los repositorios de la compañia se mostrara el repositorio creado 
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/1b665044-be53-44db-95cc-97824d278839)
+
+
 
 ### Documentación de Git Action
 - [Git Action](https://docs.github.com/es/actions)
