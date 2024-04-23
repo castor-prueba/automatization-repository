@@ -60,10 +60,6 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f351b99c-17bc-4b71-89d7-248914b339a4)
 
 
-### Documentación de Git Action
-- [Git Action](https://docs.github.com/es/actions)
-
-
 ## Proyecto .Net6
 - [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
 
@@ -95,3 +91,7 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 - **Nombre del nuevo repositorio**: Nombre del repositorio que se va a crear.
 - **private**: Indica si el repositorio debe ser privado (`true`/`false`).
 
+
+
+## Documentación de Git Action
+- [Git Action](https://docs.github.com/es/actions)
