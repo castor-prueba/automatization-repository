@@ -27,6 +27,11 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 - [Angular](https://github.com/castor-prueba/automatization-repository/actions/workflows/angular.yml)
 - [Python with fastApi ](https://github.com/castor-prueba/automatization-repository/actions/workflows/python-architecture-domain.yml)
 
+ #### Ejecución
+
+- La ejecución se activa mediante la opción de Run workflow y se ingresa los parametros necesarios para su creación:
+
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/e637139b-cc6e-48ab-ae33-f5cc78605240)
 
 - Agregar los parametros y ejecutarlo:
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/29508967-36a1-4ab3-86cc-be9f0cc1aa43)
@@ -40,7 +45,7 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
  - Los pasos de la ejecución
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/6607e17d-70f8-41de-9bca-a307aac62efa)
 
-Si en la creciaón no tuvo ningun problema, en los action ejecutados un palomita verde
+Si en la creación no tuvo ningun problema, en los action ejecutados nos mostrara una palomita verde
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f3a003af-0a32-4c0b-aab6-44da322511f7)
 
 ### Documentación de Git Action
@@ -50,9 +55,7 @@ Si en la creciaón no tuvo ningun problema, en los action ejecutados un palomita
 ## Activación de action para la creacion de proyecto .Net6
 - [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
 
-La ejecución se activa mediante la opción de Run workflow y se ingresa los parametros necesarios para su creación:
 
-![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/e637139b-cc6e-48ab-ae33-f5cc78605240)
 
 #### Parámetros:
 - **repo_name**: Nombre del nuevo repositorio.
