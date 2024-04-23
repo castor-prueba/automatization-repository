@@ -61,11 +61,13 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 
 ## Proyecto .Net6
 - [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
- 
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/48ef1e79-855e-4135-bf5e-beb6f1474cc6)
+
+
 #### Parámetros:
-- **repo_name**: Nombre del nuevo repositorio.
-- **name_solution**: Nombre de la solución del proyecto.
-- **name_project**: Nombre del proyecto dentro de la solución.
+- **Nombre del nuevo repositorio**: Nombre del repositorio que se va a crear.
+- **Nombre de la solución**: Nombre de la solución del proyecto de .Net o del Dominio.
+- **Nombre del proyecto**: Es el nombre que va a llevar en cada una de las capas.
 - **private**: Indica si el repositorio debe ser privado (`true`/`false`).
 
 ## Proyecto Angular
