@@ -13,17 +13,47 @@ Este workflow se activa cada que se corre manualmente mediante la ejecución del
 - commit inicial del proyecto con los cambios de arquitectura realizados
 - Push al repositorio inicalmente creado, con las configuraciones y creaciones iniciales
 
-### Para mas detalle de los git actión y de los pipeline:
+### Para mas detalle de los pipeline:
 
 - [Pipeline .Net6 ](https://github.com/castor-prueba/automatization-repository/blob/main/.github/workflows/net6.yml)
 - [Angular](https://github.com/castor-prueba/automatization-repository/blob/main/.github/workflows/angular.yml)
 - [Python with fastApi ](https://github.com/castor-prueba/automatization-repository/blob/main/.github/workflows/python-architecture-domain.yml)
+
+## Activación de action para la creacion de proyecto .Net6
+- [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
+
+La ejecución se activa mediante la opción de Run workflow y se ingresa los parametros necesarios para su creación:
+
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/e637139b-cc6e-48ab-ae33-f5cc78605240)
 
 #### Parámetros:
 - **repo_name**: Nombre del nuevo repositorio.
 - **name_solution**: Nombre de la solución del proyecto.
 - **name_project**: Nombre del proyecto dentro de la solución.
 - **private**: Indica si el repositorio debe ser privado (`true`/`false`).
+
+Aproximadamente la creación se demora unos 2 minutos, por lo que si actualizamos la pagina una vez ejecutado el workflow podemos ver la ejecución y si damos click el paso a paso de lo que esta realizando
+
+Agregar los parametros y ejecutarlo:
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/29508967-36a1-4ab3-86cc-be9f0cc1aa43)
+
+Proceso de ejecución:
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/5afea1a9-b061-48bd-a710-98615173b032)
+
+Stage o escenarios que se ejecutan en este caso es uno
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/88d2a736-924a-4293-8062-ec95e4f3e1a3)
+
+Los paso a paso de la ejecución
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/6607e17d-70f8-41de-9bca-a307aac62efa)
+
+Si en la creciaón no tuvo ningun problema, en los action ejecutados un palomita verde
+
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f3a003af-0a32-4c0b-aab6-44da322511f7)
+
+
+### 
+
+
 
 
 ### 2. Workflow de Despliegue Automatizado (Continuous Deployment)
