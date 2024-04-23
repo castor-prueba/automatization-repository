@@ -1,6 +1,6 @@
 # Automatización de Proyecto con Git Actions
 
-Este proyecto utiliza workflows en Git Actions para automatizar la creación de proyectos en .Net, Python y Angular, con la arquitectura orientada al dominio. A continuación se detallan los workflows disponibles y los parámetros que se pueden configurar.
+Este proyecto utiliza workflows en Git Actions para automatizar la creación de proyectos en .Net, Python y Angular en Git Hub, con la arquitectura orientada al dominio. A continuación se detallan los workflows disponibles y los parámetros que se pueden configurar.
 
 ## Workflows Disponibles
 
@@ -28,23 +28,20 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 - [Python with fastApi ](https://github.com/castor-prueba/automatization-repository/actions/workflows/python-architecture-domain.yml)
 
 
-Agregar los parametros y ejecutarlo:
+- Agregar los parametros y ejecutarlo:
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/29508967-36a1-4ab3-86cc-be9f0cc1aa43)
 
-Proceso de ejecución:
+- Proceso de ejecución:
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/5afea1a9-b061-48bd-a710-98615173b032)
 
-Stage o escenarios que se ejecutan en este caso es uno
+- Stage o escenarios que se ejecutan, en este caso es solo uno
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/88d2a736-924a-4293-8062-ec95e4f3e1a3)
 
-Los paso a paso de la ejecución
+ - Los pasos de la ejecución
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/6607e17d-70f8-41de-9bca-a307aac62efa)
 
 Si en la creciaón no tuvo ningun problema, en los action ejecutados un palomita verde
-
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f3a003af-0a32-4c0b-aab6-44da322511f7)
-
-
 
 ### Documentación de Git Action
 - [Git Action](https://docs.github.com/es/actions)
