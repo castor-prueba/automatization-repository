@@ -50,6 +50,8 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 
 - Por ultimo en los repositorios de la compañia se mostrara el repositorio creado 
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/1b665044-be53-44db-95cc-97824d278839)
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f351b99c-17bc-4b71-89d7-248914b339a4)
+
 
 
 
@@ -59,6 +61,7 @@ Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver 
 
 ## Activación de action para la creacion de proyecto .Net6
 - [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
+
 
 
 
