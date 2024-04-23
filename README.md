@@ -19,20 +19,14 @@ Este workflow se activa cada que se corre manualmente mediante la ejecución del
 - [Angular](https://github.com/castor-prueba/automatization-repository/blob/main/.github/workflows/angular.yml)
 - [Python with fastApi ](https://github.com/castor-prueba/automatization-repository/blob/main/.github/workflows/python-architecture-domain.yml)
 
-## Activación de action para la creacion de proyecto .Net6
-- [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
 
-La ejecución se activa mediante la opción de Run workflow y se ingresa los parametros necesarios para su creación:
+### Proceso de ejecución de los workflow
+Aproximadamente la ejecución de los workflows demoran unos 2 minutos. Para ver la ejecición hay que actualizar la pagina, y si damos click el vamos a ver el paso a paso de la creación
 
-![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/e637139b-cc6e-48ab-ae33-f5cc78605240)
+- [Pipeline .Net6 ](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
+- [Angular](https://github.com/castor-prueba/automatization-repository/actions/workflows/angular.yml)
+- [Python with fastApi ](https://github.com/castor-prueba/automatization-repository/actions/workflows/python-architecture-domain.yml)
 
-#### Parámetros:
-- **repo_name**: Nombre del nuevo repositorio.
-- **name_solution**: Nombre de la solución del proyecto.
-- **name_project**: Nombre del proyecto dentro de la solución.
-- **private**: Indica si el repositorio debe ser privado (`true`/`false`).
-
-Aproximadamente la creación se demora unos 2 minutos, por lo que si actualizamos la pagina una vez ejecutado el workflow podemos ver la ejecución y si damos click el paso a paso de lo que esta realizando
 
 Agregar los parametros y ejecutarlo:
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/29508967-36a1-4ab3-86cc-be9f0cc1aa43)
@@ -49,6 +43,27 @@ Los paso a paso de la ejecución
 Si en la creciaón no tuvo ningun problema, en los action ejecutados un palomita verde
 
 ![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/f3a003af-0a32-4c0b-aab6-44da322511f7)
+
+
+
+### Documentación de Git Action
+- [Git Action](https://docs.github.com/es/actions)
+
+
+## Activación de action para la creacion de proyecto .Net6
+- [Workflow Creación project .Net6](https://github.com/castor-prueba/automatization-repository/actions/workflows/net6.yml)
+
+La ejecución se activa mediante la opción de Run workflow y se ingresa los parametros necesarios para su creación:
+
+![image](https://github.com/castor-prueba/automatization-repository/assets/163158964/e637139b-cc6e-48ab-ae33-f5cc78605240)
+
+#### Parámetros:
+- **repo_name**: Nombre del nuevo repositorio.
+- **name_solution**: Nombre de la solución del proyecto.
+- **name_project**: Nombre del proyecto dentro de la solución.
+- **private**: Indica si el repositorio debe ser privado (`true`/`false`).
+
+
 
 
 ### 
