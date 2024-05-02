@@ -9,7 +9,7 @@ on:
       delete_dependents:
         required: false
         type: boolean
-        default: false
+        default: true
       port_payload:
         required: true
         type: string

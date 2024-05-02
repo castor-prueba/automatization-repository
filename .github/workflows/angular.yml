@@ -35,7 +35,7 @@ jobs:
           baseUrl: https://api.getport.io
           operation: UPSERT
           identifier: ${{ github.sha }}
-          title: Proyecto Angular Frontend
+          title: ${{ github.event.inputs.repo_name }}
           blueprint: ciJob
           properties: |-
             {

@@ -31,7 +31,7 @@ jobs:
           baseUrl: https://api.getport.io
           operation: UPSERT
           identifier: ${{ github.sha }}
-          title: Proyecto Fast Api Python
+          title: ${{ github.event.inputs.repo_name }}
           blueprint: ciJob
           properties: |-
             {

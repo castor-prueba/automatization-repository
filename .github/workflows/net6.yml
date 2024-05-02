@@ -36,7 +36,7 @@ jobs:
           baseUrl: https://api.getport.io
           operation: UPSERT
           identifier: ${{ github.sha }}
-          title: Proyecto azure fucntion .Net 6
+          title: ${{ github.event.inputs.repo_name }}
           blueprint: ciJob
           properties: |-
             {
