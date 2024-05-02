@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: write
     steps:   
-      - name: Create a log message
+      - name: Log message
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
@@ -37,16 +37,9 @@ jobs:
           baseUrl: https://api.getport.io
           operation: PATCH_RUN
           runId: ${{fromJson(inputs.port_payload).context.runId}}
-          logMessage: An example of a log message
+          logMessage: Creando el repositorio 🛠️
 
-      - name: Send Log Message
-        uses: ./.github/workflows/log-message/action.yml
-        with:
-          logMessage: 'Creando el proyecto 🛠️'
-          runId: ${{fromJson(github.event.inputs.port_payload).context.runId}}
-        
-
-    
+  
       - name: Create New Repository
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
