@@ -91,7 +91,7 @@ jobs:
           baseUrl: https://api.getport.io
           operation: PATCH_RUN
           runId: ${{fromJson(inputs.port_payload).context.runId}}
-          logMessage: Repositorio creado satisfactoriamente ✅  
+          logMessage: Intalacion de Node terminada✅  
 
       - name: Create solution and installation of the tool
         run: |
