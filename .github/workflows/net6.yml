@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: port-labs/port-github-action@v1
         with:
-          clientId: ${{ secrets.PORT_CLIENT_I }}
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           operation: UPSERT
           identifier: new-cijob-run
