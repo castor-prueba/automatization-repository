@@ -29,35 +29,22 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: UPSERT Entity
-        uses: port-labs/port-github-action@v1
+      - uses: port-labs/port-github-action@v1
         with:
-          identifier: some_identifier
-          title: Some Title
-          team: "[]"
-          icon: DefaultBlueprint
-          blueprint: service
-          properties: |-
-            {
-              "readme": "string",
-              "url": "https://example.com",
-              "language": "string",
-              "slack": "https://example.com",
-              "tier": "Mission Critical",
-              "defaultBranch": "string",
-              "description": "string"
-            }
-          relations: |-
-            {
-              "githubTeam": [
-               
-              ]
-            }
-          clientId: ${{ secrets.PORT_CLIENT_ID }}
-          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
-          baseUrl: https://api.getport.io
+          clientId: ${{ secrets.CLIENT_ID }}
+          clientSecret: ${{ secrets.CLIENT_SECRET }}
           operation: UPSERT
-          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          identifier: new-cijob-run
+          icon: GithubActions
+          blueprint: ciJob
+          properties: |
+            {
+              "commitHash": "${{ env.GITHUB_SHA }}",
+              "jobBranch": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/tree/${{ env.GITHUB_REF_NAME }}",
+              "runLink": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}",
+              "triggeredBy": "${{ env.GITHUB_ACTOR }}"
+            }
+            
       - name: Create a log message
         uses: port-labs/port-github-action@v1
         with:
