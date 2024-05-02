@@ -49,9 +49,8 @@ jobs:
             }
           relations: |-
             {
-              "githubTeams": [
-                "related_entity_identifier",
-                "another_related_entity_identifier"
+              "githubTeam": [
+               
               ]
             }
           clientId: ${{ secrets.PORT_CLIENT_ID }}
