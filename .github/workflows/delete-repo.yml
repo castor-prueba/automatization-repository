@@ -10,6 +10,9 @@ on:
         required: false
         type: boolean
         default: true
+      repo_name:
+        required: true
+        type: string
       port_payload:
         required: true
         type: string
@@ -38,7 +41,7 @@ jobs:
             -X DELETE \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${{ inputs.org_name }}/$REPO_NAME")
+            "https://api.github.com/repos/${{ inputs.org_name }}/${{input.repo_name}}")
 
           echo "HTTP Status: $HTTP_STATUS"
 
