@@ -40,7 +40,7 @@ jobs:
           properties: |
             {
               "commitHash": "${{ env.GITHUB_SHA }}",
-              "jobBranch": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/tree/${{ env.GITHUB_REF_NAME }}",
+              "jobBranch": "${{ env.GITHUB_SERVER_URL }}/tree/${{ env.GITHUB_REF }}",
               "runLink": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}",
               "triggeredBy": "${{ env.GITHUB_ACTOR }}"
             }
