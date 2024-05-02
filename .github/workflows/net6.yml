@@ -22,9 +22,12 @@ on:
           general context (blueprint, run id, etc...)
         type: string
 
-jobs:
-  create-entity-in-port-and-update-run:
+jobs:    
+  create-and-push:
+    name: Create Repository and Push Files
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: UPSERT Entity
         uses: port-labs/port-github-action@v1
@@ -65,14 +68,6 @@ jobs:
           operation: PATCH_RUN
           runId: ${{fromJson(inputs.port_payload).context.runId}}
           logMessage: An example of a log message
-    
-  create-and-push:
-    name: Create Repository and Push Files
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-     
       - name: Create New Repository
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
