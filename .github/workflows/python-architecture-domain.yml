@@ -30,8 +30,8 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
-          identifier: some_identifier
-          title: Some Title
+          identifier: cijob
+          title: Creación de proyectos
           blueprint: ciJob
           properties: |-
             {
