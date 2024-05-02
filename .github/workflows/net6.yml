@@ -16,8 +16,56 @@ on:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
         default: 'true'
+      port_payload:
+        required: true
+        description: Port's payload, including details for who triggered the action and
+          general context (blueprint, run id, etc...)
+        type: string
 
 jobs:
+  create-entity-in-port-and-update-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: UPSERT Entity
+        uses: port-labs/port-github-action@v1
+        with:
+          identifier: some_identifier
+          title: Some Title
+          team: "[]"
+          icon: DefaultBlueprint
+          blueprint: service
+          properties: |-
+            {
+              "readme": "string",
+              "url": "https://example.com",
+              "language": "string",
+              "slack": "https://example.com",
+              "tier": "Mission Critical",
+              "defaultBranch": "string",
+              "description": "string"
+            }
+          relations: |-
+            {
+              "githubTeams": [
+                "related_entity_identifier",
+                "another_related_entity_identifier"
+              ]
+            }
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+      - name: Create a log message
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: PATCH_RUN
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          logMessage: An example of a log message
+    
   create-and-push:
     name: Create Repository and Push Files
     runs-on: ubuntu-latest
