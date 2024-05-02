@@ -23,7 +23,25 @@ jobs:
     permissions:
       contents: write
     steps:
-     
+    
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          identifier: some_identifier
+          title: Some Title
+          blueprint: ciJob
+          properties: |-
+            {
+            "triggeredBy": "string",
+            "commitHash": "string",
+            "jobBranch": "https://example.com",
+            "runLink": "https://example.com"
+            }
+
+      
       - name: Create New Repository
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
