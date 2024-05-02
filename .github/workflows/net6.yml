@@ -29,7 +29,13 @@ jobs:
     permissions:
       contents: write
     steps:
-    
+       - name: Log Start
+        uses: ./.github/workflows/template/log-getreport
+        with:
+          logMessage: 'Starting the workflow'
+          icon: '🚀'
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+        
       - name: Create a log message
         uses: port-labs/port-github-action@v1
         with:
