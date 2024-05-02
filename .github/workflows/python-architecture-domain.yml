@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    
+      
       - uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
@@ -31,7 +31,7 @@ jobs:
           baseUrl: https://api.getport.io
           operation: UPSERT
           identifier: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
-          title: Proyecto Fast Api Angular
+          title: Proyecto Fast Api Python
           blueprint: ciJob
           properties: |-
             {
@@ -39,6 +39,7 @@ jobs:
               "commitHash": "${{ github.sha }}",
               "jobBranch": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
               "runLink": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
+              "RepoLink": "https://github.com/${{ github.repository_owner }}/${{ github.event.inputs.repo_name }}.git"
             }
           
       - name: Create New Repository

@@ -14,7 +14,7 @@ on:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
         default: 'true'
-        
+
       port_payload:
         required: true
         description: Port's payload, including details for who triggered the action and general context (blueprint, run id, etc...)
@@ -28,6 +28,24 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          identifier: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
+          title: Proyecto Angular Frontend
+          blueprint: ciJob
+          properties: |-
+            {
+              "triggeredBy": "${{ github.actor }}",
+              "commitHash": "${{ github.sha }}",
+              "jobBranch": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
+              "runLink": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
+              "RepoLink": "https://github.com/${{ github.repository_owner }}/${{ github.event.inputs.repo_name }}.git"
+            }
+
       - name: Create New Repository
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
