@@ -35,7 +35,7 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
-          identifier: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
+          identifier: ${{ github.sha }}
           title: Proyecto azure fucntion .Net 6
           blueprint: ciJob
           properties: |-
