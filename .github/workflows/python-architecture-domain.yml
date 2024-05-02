@@ -30,7 +30,7 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
-          identifier: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
+          identifier: ${{ github.sha }}
           title: Proyecto Fast Api Angular
           blueprint: ciJob
           properties: |-
@@ -40,8 +40,7 @@ jobs:
             "jobBranch": ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }},
             "runLink": ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
             }
-
-      
+          
       - name: Create New Repository
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
