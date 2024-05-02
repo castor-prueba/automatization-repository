@@ -14,6 +14,12 @@ on:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
         default: 'true'
+        
+      port_payload:
+        required: true
+        description: Port's payload, including details for who triggered the action and general context (blueprint, run id, etc...)
+        type: string
+  
 
 jobs:
   create-and-push:
