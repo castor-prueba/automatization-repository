@@ -30,15 +30,15 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
-          identifier: ${{ github.sha }}
+          identifier: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
           title: Proyecto Fast Api Angular
           blueprint: ciJob
           properties: |-
             {
-            "triggeredBy": ${{ github.actor }},
-            "commitHash": ${{ github.sha }},
-            "jobBranch": ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }},
-            "runLink": ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}
+              "triggeredBy": "${{ github.actor }}",
+              "commitHash": "${{ github.sha }}",
+              "jobBranch": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
+              "runLink": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
             }
           
       - name: Create New Repository
