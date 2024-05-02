@@ -31,8 +31,8 @@ jobs:
     steps:
       - uses: port-labs/port-github-action@v1
         with:
-          clientId: ${{ secrets.PORT_CLIENT_ID }}
-          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          clientId: ${{ secrets.CLIENT_ID }}
+          clientSecret: ${{ secrets.CLIENT_SECRET }}
           operation: UPSERT
           identifier: new-cijob-run
           icon: GithubActions
@@ -40,9 +40,9 @@ jobs:
           properties: |
             {
               "commitHash": "${{ env.GITHUB_SHA }}",
-              "jobBranch": "${{ env.GITHUB_SERVER_URL }}/tree/${{ env.GITHUB_REF }}",
+              "jobBranch": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/tree/${{ github.ref_name }}",
               "runLink": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}",
-              "triggeredBy": "${{ env.GITHUB_ACTOR }}"
+              "triggeredBy": "${{ github.actor }}"
             }
             
       - name: Create a log message
