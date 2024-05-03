@@ -43,7 +43,12 @@ jobs:
             }
           relations: |-
             {
-              "belongsTo": "${{ fromJson(inputs.port_payload).context.entity }}"
+              "ci_workflow": {
+                "title": "CI-workflow",
+                "target": "service",
+                "required": true,
+                "many": false
+              }
             }
           
       - name: Create New Repository
