@@ -43,10 +43,7 @@ jobs:
             }
           relations: |-
             {
-              "ci_workflow": {
-                "identifier": null,
-                "title": null
-              }
+              "ci_workflow": ""
             }
           
       - name: Create New Repository
