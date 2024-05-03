@@ -41,6 +41,10 @@ jobs:
               "runLink": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
               "RepoLink": "https://github.com/${{ github.repository_owner }}/${{ github.event.inputs.repo_name }}.git"
             }
+          relations: |-
+            {
+              "belongsTo": "${{ fromJson(inputs.port_payload).context.entity }}"
+            }
           
       - name: Create New Repository
         env:

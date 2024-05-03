@@ -41,7 +41,7 @@ jobs:
             -X DELETE \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${{ inputs.org_name }}/${{input.repo_name}}")
+            "https://api.github.com/repos/${{ inputs.org_name }}/${{inputs.repo_name}}")
 
           echo "HTTP Status: $HTTP_STATUS"
 
