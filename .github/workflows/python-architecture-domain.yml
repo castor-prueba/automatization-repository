@@ -43,7 +43,7 @@ jobs:
             }
           relations: |-
             {
-              "ciJob": "Service"
+              "ci_workflow": "service"
             }
           
       - name: Create New Repository
