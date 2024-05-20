@@ -195,7 +195,8 @@ jobs:
 
       - name: Grant execute permissions to the configure-swagger script
         run: |
-          cd integration
+          ls -la
+          pwd
           chmod +x configure-swagger.sh
           configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
           pwd 
