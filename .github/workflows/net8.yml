@@ -121,7 +121,6 @@ jobs:
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
 
           cd ..
-          cd ..
           ls -la 
           pwd
           cp ./integration/configure-swagger.sh ${{ github.event.inputs.name_solution }}
