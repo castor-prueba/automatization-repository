@@ -197,12 +197,15 @@ jobs:
         run: |
           cd integration
           chmod +x configure-swagger.sh
+          configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
+          pwd 
+          ls -la
           
   
-      - name: Configure Swagger for function project
+      - name: Ls
         run: |
-          cd integration
-          configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
+          ls -la
+          pwd
 
       
       - name: Restore NuGet packages
