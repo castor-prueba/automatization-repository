@@ -184,10 +184,12 @@ jobs:
 
       - name: Grant execute permissions to the configure-swagger script
         run: |
+          ls -la
           chmod +x ./integration/configure-swagger.sh
   
       - name: Configure Swagger for function project
         run: |
+          ls -la
           ./integration/configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
 
       
