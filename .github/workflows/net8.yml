@@ -60,20 +60,7 @@ jobs:
           logMessage: Creando el repositorio 🛠️
 
   
-      - name: Create New Repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
-        run: |
-          curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-               -d '{"name":"${{ github.event.inputs.repo_name }}", "private":${{ github.event.inputs.private }}}' \
-               https://api.github.com/orgs/castor-prueba/repos
-               
-      - name: Checkout current repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
-          fetch-depth: 0
-
+      
       - name: Log message
         uses: port-labs/port-github-action@v1
         with:
@@ -204,6 +191,21 @@ jobs:
         run: |
           cd ${{ github.event.inputs.name_solution }}
           dotnet build
+          
+      - name: Create New Repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
+        run: |
+          curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+               -d '{"name":"${{ github.event.inputs.repo_name }}", "private":${{ github.event.inputs.private }}}' \
+               https://api.github.com/orgs/castor-prueba/repos
+               
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
+          fetch-depth: 0
+
 
       - name: Commit and push changes
         run: |
