@@ -128,7 +128,7 @@ jobs:
       - name: Create function project
         run: |
           cd ${{ github.event.inputs.name_solution }}/01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
-          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C# --target-framework net8.0
           cd ../../../
 
       - name: Create application project
