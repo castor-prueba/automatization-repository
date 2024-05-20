@@ -199,7 +199,8 @@ jobs:
           ls -la
           pwd
           chmod +x configure-swagger.sh
-          configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
+          ls -la
+          ./configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
           pwd 
           ls -la
           
