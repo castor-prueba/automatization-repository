@@ -209,6 +209,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          ls -la
           cd ${{ github.event.inputs.name_solution }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
