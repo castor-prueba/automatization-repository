@@ -1,4 +1,4 @@
-name: Create Repository and Push C#
+name: Create Repository and Push .net8
 
 on:
   workflow_dispatch:
