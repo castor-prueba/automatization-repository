@@ -195,6 +195,7 @@ jobs:
 
       - name: Grant execute permissions to the configure-swagger script
         run: |
+          cd integration
           ls -la
           pwd
           chmod +x configure-swagger.sh
@@ -211,6 +212,7 @@ jobs:
       
       - name: Restore NuGet packages
         run: |
+          ls -la
           cd ${{ github.event.inputs.name_solution }}
           dotnet restore
           
