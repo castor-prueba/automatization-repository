@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: write
     env:
-      DOTNET_VERSION: '8.0.x'  # Define la versión de .NET como una variable de entorno
+      DOTNET_VERSION: '8.0.0'  # Define la versión de .NET como una variable de entorno
     steps:
       - uses: port-labs/port-github-action@v1
         with:
