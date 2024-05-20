@@ -187,6 +187,7 @@ jobs:
           ls -la
           cd ..
           cd ..
+          cd automatization-repository
           ls -la
           cd integration
           ls -la
@@ -195,8 +196,9 @@ jobs:
   
       - name: Configure Swagger for function project
         run: |
-          cd ${{ github.event.inputs.name_solution }}
-          
+          cd ..
+          cd ..
+          cd automatization-repository
           cd integration
           ls -la
           configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
