@@ -185,7 +185,8 @@ jobs:
       - name: Grant execute permissions to the configure-swagger script
         run: |
           ls -la
-          cd ${{ github.event.inputs.name_solution }}
+          cd ..
+          cd ..
           ls -la
           cd integration
           ls -la
