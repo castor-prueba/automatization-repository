@@ -185,15 +185,17 @@ jobs:
       - name: Grant execute permissions to the configure-swagger script
         run: |
           ls -la
-          cd ${{ github.event.inputs.name_solution }}
-          chmod +x ./integration/configure-swagger.sh
+          cd ${{ github.event.inputs.name_solution }}/integration
+          ls -la
+          chmod +x configure-swagger.sh
           
   
       - name: Configure Swagger for function project
         run: |
           cd ${{ github.event.inputs.name_solution }}
+          cd integration
           ls -la
-          ./integration/configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
+          configure-swagger.sh ${{ github.event.inputs.name_solution }} ${{ github.event.inputs.name_project }}
 
       
       - name: Restore NuGet packages
