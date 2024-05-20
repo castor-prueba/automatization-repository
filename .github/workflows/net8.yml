@@ -16,13 +16,11 @@ on:
         description: '¿El repositorio debe ser privado? (true/false)'
         required: true
         default: 'true'
-
       port_payload:
         required: true
         description: Port's payload, including details for who triggered the action and
           general context (blueprint, run id, etc...)
         type: string
-
 
 jobs:    
   create-and-push:
@@ -30,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      DOTNET_VERSION: '8.0.x'  # Define la versión de .NET como una variable de entorno
     steps:
       - uses: port-labs/port-github-action@v1
         with:
@@ -101,7 +101,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '8.0.x' 
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Log message
         uses: port-labs/port-github-action@v1
@@ -118,10 +118,7 @@ jobs:
           npm i -g azure-functions-core-tools@4 --unsafe-perm true
           dotnet new sln -o ${{ github.event.inputs.name_solution }}
 
-      
-
-      - name: Create projects and folder structure
-
+      - name: Create project directories
         run: |
           cd ${{ github.event.inputs.name_solution }}
           mkdir -p 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
@@ -129,65 +126,73 @@ jobs:
           mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
           mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
-          
-          cd 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
-          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
-          ls -la
-          cd ..
-          cd ..
-          
-          dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
-          dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
-          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
-          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
-          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
-          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common
-          dotnet new xunit -o  05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
-          
 
+      - name: Create function project
+        run: |
+          cd ${{ github.event.inputs.name_solution }}/01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
+          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          cd ../../../
+
+      - name: Create application project
+        run: |
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+
+      - name: Create domain project
+        run: |
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+
+      - name: Create infrastructure projects
+        run: |
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet new classlib -o ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common
+
+      - name: Create test project
+        run: |
+          dotnet new xunit -o ${{ github.event.inputs.name_solution }}/05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+
+      - name: Add projects to solution
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
           dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}_Function.csproj
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
-          
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common/${{ github.event.inputs.name_project }}.Infrastructure.Common.csproj
           dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
 
-        
-      - name: Add dependency to project
+      - name: Add dependencies to application project
         run: |
-          cd ${{ github.event.inputs.name_solution }}
-          cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
-          
+          cd ${{ github.event.inputs.name_solution }}/02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
           dotnet add package AutoMapper
           dotnet add package Newtonsoft.Json
-          cd ..
-          cd ..
-          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+
+      - name: Add dependencies to domain project
+        run: |
+          cd ${{ github.event.inputs.name_solution }}/03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
           dotnet add package FluentValidation
 
-          cd ..
-          cd ..
-
-          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+      - name: Add dependencies to infrastructure projects
+        run: |
+          cd ${{ github.event.inputs.name_solution }}/04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
           dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection 
-          dotnet add package Microsoft.EntityFrameworkCore --version 8.0.0           
-          dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.0
-          dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0 
-          dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
+          dotnet add package Microsoft.EntityFrameworkCore --version ${{ env.DOTNET_VERSION }}
+          dotnet add package Microsoft.EntityFrameworkCore.Design --version ${{ env.DOTNET_VERSION }}
+          dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version ${{ env.DOTNET_VERSION }}
+          dotnet add package Microsoft.EntityFrameworkCore.Tools --version ${{ env.DOTNET_VERSION }}
           cd ..
-          cd ..
-          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
-          dotnet add package Microsoft.Extensions.Configuration --version 8.0.0
-          dotnet add package Microsoft.Extensions.Http --version 8.0.0
+          cd ../${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet add package Microsoft.Extensions.Configuration --version ${{ env.DOTNET_VERSION }}
+          dotnet add package Microsoft.Extensions.Http --version ${{ env.DOTNET_VERSION }}
           dotnet add package Newtonsoft.Json
           dotnet add package Polly
-          cd ..
-          cd ..
 
-          cd 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+      - name: Add dependencies to test project
+        run: |
+          cd ${{ github.event.inputs.name_solution }}/05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
           dotnet add package Moq
           
       - name: Restore NuGet packages
@@ -200,8 +205,9 @@ jobs:
           cd ${{ github.event.inputs.name_solution }}
           dotnet build
 
-      - run: |
-          cd  ${{ github.event.inputs.name_solution }}
+      - name: Commit and push changes
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
           git config --global user.email "jhoan.rojas@mercurio.com.co"
           git config --global user.name "JhoanDRojas"
           rm -rf .git/
@@ -209,12 +215,5 @@ jobs:
           git add .
           git commit -m "Initial commit"
           git branch -M main
-
-      - name: Push to new repository
-        env:
-          REPO_NAME: ${{ github.event.inputs.repo_name }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}
-        run: |
-          cd  ${{ github.event.inputs.name_solution }}
-          git remote add origin https://$GITHUB_TOKEN@github.com/castor-prueba/$REPO_NAME.git
+          git remote add origin https://$GITHUB_TOKEN@github.com/castor-prueba/${{ github.event.inputs.repo_name }}.git
           git push -f origin main
