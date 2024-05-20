@@ -181,57 +181,7 @@ jobs:
         run: |
           cd ${{ github.event.inputs.name_solution }}/05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
           dotnet add package Moq
-
-      - name: Add Swagger dependencies and configuration to function project
-        run: |
-          cd ${{ github.event.inputs.name_solution }}/01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
-          dotnet add package Swashbuckle.AspNetCore
-          
-          # Create Startup.cs file
-          echo 'using Microsoft.Azure.Functions.Extensions.DependencyInjection;' > Startup.cs
-          echo 'using Microsoft.Extensions.DependencyInjection;' >> Startup.cs
-          echo 'using Microsoft.OpenApi.Models;' >> Startup.cs
-          echo 'using Swashbuckle.AspNetCore.SwaggerGen;' >> Startup.cs
-          echo 'using System.Reflection;' >> Startup.cs
-          echo '' >> Startup.cs
-          echo '[assembly: FunctionsStartup(typeof(${github.event.inputs.name_project}.Function.Startup))]' >> Startup.cs
-          echo '' >> Startup.cs
-          echo 'namespace ${github.event.inputs.name_project}.Function' >> Startup.cs
-          echo '{' >> Startup.cs
-          echo '    public class Startup : FunctionsStartup' >> Startup.cs
-          echo '    {' >> Startup.cs
-          echo '        public override void Configure(IFunctionsHostBuilder builder)' >> Startup.cs
-          echo '        {' >> Startup.cs
-          echo '            builder.Services.AddSwaggerGen(c =>' >> Startup.cs
-          echo '            {' >> Startup.cs
-          echo '                c.SwaggerDoc("v1", new OpenApiInfo { Title = "${github.event.inputs.name_project} API", Version = "v1" });' >> Startup.cs
-          echo '                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";' >> Startup.cs
-          echo '                var xmlPath = System.IO.Path.Combine(System.AppContext.BaseDirectory, xmlFile);' >> Startup.cs
-          echo '                c.IncludeXmlComments(xmlPath);' >> Startup.cs
-          echo '            });' >> Startup.cs
-          echo '        }' >> Startup.cs
-          echo '    }' >> Startup.cs
-          echo '}' >> Startup.cs
-
-          # Create FunctionExtensions.cs file
-          echo 'using Microsoft.Azure.Functions.Extensions.DependencyInjection;' > FunctionExtensions.cs
-          echo 'using Microsoft.OpenApi.Models;' >> FunctionExtensions.cs
-          echo 'using Swashbuckle.AspNetCore.SwaggerGen;' >> FunctionExtensions.cs
-          echo 'using System.Linq;' >> FunctionExtensions.cs
-          echo 'using Microsoft.Azure.WebJobs;' >> FunctionExtensions.cs
-          echo 'using Microsoft.Azure.WebJobs.Hosting;' >> FunctionExtensions.cs
-          echo '' >> FunctionExtensions.cs
-          echo 'namespace ${github.event.inputs.name_project}.Function' >> FunctionExtensions.cs
-          echo '{' >> FunctionExtensions.cs
-          echo '    public class FunctionExtensions : IWebJobsStartup' >> FunctionExtensions.cs
-          echo '    {' >> FunctionExtensions.cs
-          echo '        public void Configure(IWebJobsBuilder builder)' >> FunctionExtensions.cs
-          echo '        {' >> FunctionExtensions.cs
-          echo '            builder.AddSwashbuckle(Assembly.GetExecutingAssembly());' >> FunctionExtensions.cs
-          echo '        }' >> FunctionExtensions.cs
-          echo '    }' >> FunctionExtensions.cs
-          echo '}' >> FunctionExtensions.cs
-          
+      
       - name: Restore NuGet packages
         run: |
           cd ${{ github.event.inputs.name_solution }}
