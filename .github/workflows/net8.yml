@@ -1,0 +1,218 @@
+name: Create Repository and Push C#
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: 'Nombre del nuevo repositorio'
+        required: true
+      name_solution: 
+        description: 'Nombre de la solución'
+        required: true
+      name_project: 
+        description: 'Nombre del proyecto'
+        required: true
+      private:
+        description: '¿El repositorio debe ser privado? (true/false)'
+        required: true
+        default: 'true'
+      port_payload:
+        required: true
+        description: Port's payload, including details for who triggered the action and
+          general context (blueprint, run id, etc...)
+        type: string
+
+jobs:    
+  create-and-push:
+    name: Create Repository and Push Files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          identifier: ${{ github.sha }}
+          title: ${{ github.event.inputs.repo_name }}
+          blueprint: ciJob
+          properties: |-
+            {
+              "triggeredBy": "${{ github.actor }}",
+              "commitHash": "${{ github.sha }}",
+              "jobBranch": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
+              "runLink": "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}",
+              "RepoLink": "https://github.com/${{ github.repository_owner }}/${{ github.event.inputs.repo_name }}.git"
+            }
+
+      - name: Log message
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: PATCH_RUN
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          logMessage: Creando el repositorio 🛠️
+
+  
+      - name: Create New Repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}  # Utiliza el token de GitHub para autenticar
+        run: |
+          curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+               -d '{"name":"${{ github.event.inputs.repo_name }}", "private":${{ github.event.inputs.private }}}' \
+               https://api.github.com/orgs/castor-prueba/repos
+               
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
+          fetch-depth: 0
+
+      - name: Log message
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: PATCH_RUN
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          logMessage: Repositorio creado satisfactoriamente ✅  
+
+      - name: Log message
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: PATCH_RUN
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          logMessage: Instalando node ⌛️  
+      
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x' 
+
+      - name: Log message
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: PATCH_RUN
+          runId: ${{fromJson(inputs.port_payload).context.runId}}
+          logMessage: Instalación de Node terminada✅  
+
+      - name: Create solution and installation of the tool
+        run: |
+          npm i -g azure-functions-core-tools@4 --unsafe-perm true
+          dotnet new sln -o ${{ github.event.inputs.name_solution }}
+
+      
+
+      - name: Create projects and folder structure
+
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
+          mkdir -p 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
+          mkdir -p 02.${{ github.event.inputs.name_project }}.Application
+          mkdir -p 03.${{ github.event.inputs.name_project }}.Domain
+          mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
+          mkdir -p 05.${{ github.event.inputs.name_project }}.Test
+          
+          cd 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function
+          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet --language C#
+          ls -la
+          cd ..
+          cd ..
+          
+          dotnet new classlib -o 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+          dotnet new classlib -o 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet new classlib -o 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common
+          dotnet new xunit -o  05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+          
+
+          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}_Function.csproj
+          dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
+          dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
+          
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService/${{ github.event.inputs.name_project }}.Infrastructure.ExternalService.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence/${{ github.event.inputs.name_project }}.Infrastructure.Persistence.csproj
+          dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Common/${{ github.event.inputs.name_project }}.Infrastructure.Common.csproj
+          dotnet sln add 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests/${{ github.event.inputs.name_project }}.Tests.csproj
+
+        
+      - name: Add dependency to project
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
+          cd 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application
+          
+          dotnet add package AutoMapper
+          dotnet add package Newtonsoft.Json
+          cd ..
+          cd ..
+          cd 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain
+          dotnet add package FluentValidation
+
+          cd ..
+          cd ..
+
+          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Persistence
+          dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection 
+          dotnet add package Microsoft.EntityFrameworkCore --version 8.0.0           
+          dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.0
+          dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0 
+          dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
+          cd ..
+          cd ..
+          cd 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents
+          dotnet add package Microsoft.Extensions.Configuration --version 8.0.0
+          dotnet add package Microsoft.Extensions.Http --version 8.0.0
+          dotnet add package Newtonsoft.Json
+          dotnet add package Polly
+          cd ..
+          cd ..
+
+          cd 05.${{ github.event.inputs.name_project }}.Test/${{ github.event.inputs.name_project }}.Tests
+          dotnet add package Moq
+          
+      - name: Restore NuGet packages
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
+          dotnet restore
+          
+      - name: Build the solution
+        run: |
+          cd ${{ github.event.inputs.name_solution }}
+          dotnet build
+
+      - run: |
+          cd  ${{ github.event.inputs.name_solution }}
+          git config --global user.email "jhoan.rojas@mercurio.com.co"
+          git config --global user.name "JhoanDRojas"
+          rm -rf .git/
+          git init
+          git add .
+          git commit -m "Initial commit"
+          git branch -M main
+
+      - name: Push to new repository
+        env:
+          REPO_NAME: ${{ github.event.inputs.repo_name }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_ACCTION }}
+        run: |
+          cd  ${{ github.event.inputs.name_solution }}
+          git remote add origin https://$GITHUB_TOKEN@github.com/castor-prueba/$REPO_NAME.git
+          git push -f origin main
