@@ -186,7 +186,9 @@ jobs:
         run: |
           ls -la
           cd ..
-          cd ..
+          ls -la
+          echo "linea 190"
+          pwd
           cd automatization-repository
           ls -la
           cd integration
