@@ -171,6 +171,7 @@ jobs:
           dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version ${{ env.DOTNET_VERSION }}
           dotnet add package Microsoft.EntityFrameworkCore.Tools --version ${{ env.DOTNET_VERSION }}
           cd ..
+          ls
           cd ../${{ github.event.inputs.name_project }}.Infrastructure.Agents
           dotnet add package Microsoft.Extensions.Configuration --version ${{ env.DOTNET_VERSION }}
           dotnet add package Microsoft.Extensions.Http --version ${{ env.DOTNET_VERSION }}
