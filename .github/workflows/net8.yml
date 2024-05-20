@@ -105,6 +105,12 @@ jobs:
           npm i -g azure-functions-core-tools@4 --unsafe-perm true
           dotnet new sln -o ${{ github.event.inputs.name_solution }}
 
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN_GITHUB_ACCTION }}
+          fetch-depth: 0
+
       - name: Create project directories
         run: |
           ls -la 
