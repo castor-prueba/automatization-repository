@@ -16,7 +16,7 @@ ls -la
 pwd
 
 # Navegar al directorio de la función
-cd "$SOLUTION_DIR/01.$PROJECT_NAME.Api/$NAME_PROJECT_CAPITALIZED.Function"
+cd "$SOLUTION_DIR/01.$PROJECT_NAME.Api/$NAME_PROJECT_CAPITALIZED"
 
 # Ejecutar el script de configuración de Swagger ubicado en la carpeta 've'
 
