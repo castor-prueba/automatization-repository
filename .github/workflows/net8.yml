@@ -136,7 +136,7 @@ jobs:
           # Navegar al directorio de la solución y crear la función con el nombre modificado
           cd "$NAME_SOLUTION/01.$NAME_PROJECT.Api"
           func init "$NAME_PROJECT_CAPITALIZED" --worker-runtime dotnet-isolated --target-framework net8.0
-          cd "$NAME_PROJECT_CAPITALIZED.Function"
+          cd "$NAME_PROJECT_CAPITALIZED"
           func new --name "$NAME_PROJECT_CAPITALIZED" --template "HTTP trigger" --authlevel "anonymous"
 
           
