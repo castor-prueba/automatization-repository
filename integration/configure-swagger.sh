@@ -39,3 +39,33 @@ var host = new HostBuilder()
 host.Run();
 EOL
 
+# Crear archivo SwaggerFunction.cs
+cat <<EOL > SwaggerFunction.cs
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace $PROJECT_NAME.Function
+{
+    public class ${PROJECT_NAME}SwaggerFunction
+    {
+        private readonly ILogger<${PROJECT_NAME}SwaggerFunction> _logger;
+
+        public ${PROJECT_NAME}SwaggerFunction(ILogger<${PROJECT_NAME}SwaggerFunction> logger)
+        {
+            _logger = logger;
+        }
+
+        [Function("Swagger")]
+        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+        {
+            _logger.LogInformation("Serving Swagger UI");
+            return new RedirectResult("/swagger");
+        }
+    }
+}
+EOL
+
+echo "Swagger configuration completed."
+pwd
