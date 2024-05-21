@@ -120,11 +120,6 @@ jobs:
           mkdir -p 04.${{ github.event.inputs.name_project }}.Infrastructure
           mkdir -p 05.${{ github.event.inputs.name_project }}.Test
 
-          cd ..
-          ls -la 
-          pwd
-          cp ./integration/configure-swagger.sh ${{ github.event.inputs.name_solution }}
-
       - name: Create function project
         run: |
           cd ${{ github.event.inputs.name_solution }}/01.${{ github.event.inputs.name_project }}.Api
