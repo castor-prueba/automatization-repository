@@ -135,7 +135,7 @@ jobs:
         
           # Navegar al directorio de la solución y crear la función con el nombre modificado
           cd "$NAME_SOLUTION/01.$NAME_PROJECT.Api"
-          func init "$NAME_PROJECT_CAPITALIZED.Function" --worker-runtime dotnet-isolated --target-framework net8.0
+          func init "$NAME_PROJECT_CAPITALIZED" --worker-runtime dotnet-isolated --target-framework net8.0
           cd "$NAME_PROJECT_CAPITALIZED.Function"
           func new --name "$NAME_PROJECT_CAPITALIZED" --template "HTTP trigger" --authlevel "anonymous"
 
@@ -163,8 +163,18 @@ jobs:
 
       - name: Add projects to solution
         run: |
+          NAME_SOLUTION="${{ github.event.inputs.name_solution }}"
+          NAME_PROJECT="${{ github.event.inputs.name_project }}"
+
+          # Función para capitalizar la primera letra de cada palabra
+          capitalize() {
+            echo "$1" | sed -E 's/(^|-)([a-z])/\U\2/g'
+          }        
+          # Convertir el nombre del proyecto
+          NAME_PROJECT_CAPITALIZED="$(capitalize "$NAME_PROJECT")Function"
+
           cd ${{ github.event.inputs.name_solution }}
-          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}_Function.csproj
+          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/$NAME_PROJECT_CAPITALIZED.csproj
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
