@@ -4,10 +4,22 @@
 SOLUTION_DIR=$1
 PROJECT_NAME=$2
 
-# Navegar al directorio de la función
-cd "$SOLUTION_DIR/01.$PROJECT_NAME.Api/$PROJECT_NAME.Function"
+# Función para capitalizar la primera letra de cada palabra
+capitalize() {
+  echo "$1" | sed -E 's/(^|-)([a-z])/\U\2/g'
+}
 
+# Convertir el nombre del proyecto
+NAME_PROJECT_CAPITALIZED="$(capitalize "$PROJECT_NAME")Function"
+cd ..
 ls -la 
+pwd
+
+# Navegar al directorio de la función
+cd "$SOLUTION_DIR/01.$PROJECT_NAME.Api/$NAME_PROJECT_CAPITALIZED.Function"
+
+# Ejecutar el script de configuración de Swagger ubicado en la carpeta 've'
+
 echo "********************************************CONFIGURE_SWAGGER******************************************"
 
 # Agregar paquete Swashbuckle
@@ -39,7 +51,7 @@ var host = new HostBuilder()
 host.Run();
 EOL
 
-# Crear archivo SwaggerFunction.cs
+# Crear archivo ${NAME_PROJECT_CAPITALIZED}.cs
 cat <<EOL > SwaggerFunction.cs
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
@@ -48,11 +60,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace $PROJECT_NAME.Function
 {
-    public class ${PROJECT_NAME}SwaggerFunction
+    public class ${NAME_PROJECT_CAPITALIZED}
     {
-        private readonly ILogger<${PROJECT_NAME}SwaggerFunction> _logger;
+        private readonly ILogger<${NAME_PROJECT_CAPITALIZED}> _logger;
 
-        public ${PROJECT_NAME}SwaggerFunction(ILogger<${PROJECT_NAME}SwaggerFunction> logger)
+        public ${NAME_PROJECT_CAPITALIZED}(ILogger<${NAME_PROJECT_CAPITALIZED}> logger)
         {
             _logger = logger;
         }
@@ -66,6 +78,6 @@ namespace $PROJECT_NAME.Function
     }
 }
 EOL
-
+echo "*********************************Final***************************"
+ls-la 
 echo "Swagger configuration completed."
-pwd
