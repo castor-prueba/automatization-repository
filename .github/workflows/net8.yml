@@ -129,7 +129,7 @@ jobs:
         run: |
           cd ${{ github.event.inputs.name_solution }}/01.${{ github.event.inputs.name_project }}.Api
           func init ${{ github.event.inputs.name_project }}.Function --worker-runtime dotnet-isolated --target-framework net8.0
-          func new --name HttpExample --template "HTTP trigger" --authlevel "anonymous"
+          func new --name ${{ github.event.inputs.name_project }}.Function --template "HTTP trigger" --authlevel "anonymous" --worker-runtime dotnet-isolated --language C#
           cd ../../../
 
       - name: Create application project
