@@ -21,7 +21,7 @@ cd "$SOLUTION_DIR/01.$PROJECT_NAME.Api/$NAME_PROJECT_CAPITALIZED"
 # Ejecutar el script de configuración de Swagger ubicado en la carpeta 've'
 
 echo "********************************************CONFIGURE_SWAGGER******************************************"
-
+ls -la
 # Agregar paquete Swashbuckle
 dotnet add package Swashbuckle.AspNetCore
 
@@ -79,5 +79,5 @@ namespace $PROJECT_NAME.Function
 }
 EOL
 echo "*********************************Final***************************"
-ls-la 
+ls -la 
 echo "Swagger configuration completed."
