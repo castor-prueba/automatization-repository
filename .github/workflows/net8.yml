@@ -153,7 +153,7 @@ jobs:
       - name: Add projects to solution
         run: |
           cd ${{ github.event.inputs.name_solution }}
-          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}Function/${{ github.event.inputs.name_project }}.Function.csproj
+          dotnet sln add 01.${{ github.event.inputs.name_project }}.Api/${{ github.event.inputs.name_project }}.Function/${{ github.event.inputs.name_project }}.Function.csproj
           dotnet sln add 02.${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application/${{ github.event.inputs.name_project }}.Application.csproj
           dotnet sln add 03.${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain/${{ github.event.inputs.name_project }}.Domain.csproj
           dotnet sln add 04.${{ github.event.inputs.name_project }}.Infrastructure/${{ github.event.inputs.name_project }}.Infrastructure.Agents/${{ github.event.inputs.name_project }}.Infrastructure.Agents.csproj
